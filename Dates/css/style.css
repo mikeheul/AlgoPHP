@@ -1,0 +1,22 @@
+h3 > strong {
+    color: #ff8080;
+}
+
+footer {
+    padding: 2em;
+    text-align: center;
+}
+
+.uk-table, .uk-table-striped {
+    background-color: white;
+}
+
+.uk-heading-bullet::before {
+    border-left-color: #ff8080;
+}
+
+.result {
+    padding: 1em;
+    background-color: #fff9a8;
+    font-family: 'Courier New', Courier, monospace;
+}

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>correction.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="correction-algo-php---partie-1">Correction Algo PHP - Partie 1</h1>
+<h2 id="exo-1">Exo 1</h2>
+<p>Soit la phrase « Notre formation DL commence aujourd'hui ».
+Ecrire un algorithme permettant de compter le nombre de caractères contenus dans cette phrase (espaces inclus).</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $phrase = <span class="hljs-string">"Notre formation DL commence aujourd'hui"</span>;
+    <span class="hljs-comment">// strlen() compte le nombre de caractères</span>
+    $longueur = strlen($phrase);
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"La phrase « $phrase » contient "</span>.strlen($phrase).<span class="hljs-string">" caractères&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"La phrase « $phrase » contient $longueur caractères"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-2">Exo 2</h2>
+<p>A partir de la phrase de l’exercice 1, écrire l’instruction permettant de compter le nombre de mots contenus dans celle-ci.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $phrase = <span class="hljs-string">"Notre formation DL commence aujourd'hui"</span>;
+    <span class="hljs-comment">// str_word_count() compte le nombre de mots dans une chaîne de caractères</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"La phrase « $phrase » contient "</span>.str_word_count($phrase).<span class="hljs-string">" mots"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-3">Exo 3</h2>
+<p>A partir de la phrase de l’exercice 1, écrire l’instruction permettant de remplacer le mot « aujourd’hui » par le mot « demain ». Afficher l’ancienne et la nouvelle phrase.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $phrase = <span class="hljs-string">"Notre formation DL commence aujourd'hui"</span>;
+    <span class="hljs-keyword">echo</span> $phrase.<span class="hljs-string">"&lt;br&gt;"</span>;
+    <span class="hljs-keyword">echo</span> str_replace(<span class="hljs-string">"aujourd'hui"</span>, <span class="hljs-string">"demain"</span>, $phrase);
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-4">Exo 4</h2>
+<p>Ecrire un algorithme permettant de savoir si une phrase est palindrome.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $phrase = <span class="hljs-string">"Engage le jeu que je le gagne"</span>;
+    $phraseLowRev = strtolower(strrev(str_replace(<span class="hljs-string">" "</span>,<span class="hljs-string">""</span>,$phrase)));
+
+    <span class="hljs-comment">/*
+    FONCTIONS UTILISEES :
+    - strtolower : convertir une chaîne de caractères en minuscules
+    - str_replace : remplacer un mot par un autre dans une chaîne de caractères (ici pour supprimer l'espace)
+    - strrev : inverse le sens d'une chaîne de caractères
+    */</span>
+
+    <span class="hljs-comment">// if classique</span>
+    <span class="hljs-keyword">if</span>(strtolower(str_replace(<span class="hljs-string">" "</span>,<span class="hljs-string">""</span>,$phrase)) == $phraseLowRev){
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"La phrase « $phrase » est palindrome&lt;br/&gt;"</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"La phrase « $phrase » est non palindrome&lt;br/&gt;"</span>;
+    }
+
+    <span class="hljs-comment">// ternaire</span>
+    $reponse = (strtolower(str_replace(<span class="hljs-string">" "</span>,<span class="hljs-string">""</span>,$phrase)) == $phraseLowRev) ? <span class="hljs-string">"palindrome"</span> : <span class="hljs-string">"non palindrome"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"La phrase « $phrase » est $reponse"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-5">Exo 5</h2>
+<p>Ecrire un algorithme qui déclare une valeur en francs et qui la convertit en euros.
+Attention, la valeur générée devra être arrondie à 2 décimales.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $valeurFrancs = <span class="hljs-number">1000000</span>;
+    <span class="hljs-comment">// $valeurEuros = round($valeurFrancs / 6.55957, 2);</span>
+    $valeurEuros = number_format($valeurFrancs / <span class="hljs-number">6.55957</span>, <span class="hljs-number">2</span>, <span class="hljs-string">","</span>, <span class="hljs-string">" "</span>);
+    <span class="hljs-comment">// number_format permet de paramétrer plus de choses à l'affichage : séparateur de milliers ainsi que le symbole de la décimale (round() reste correct cependant)</span>
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;h2&gt;Avec number_format()&lt;/h2&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Montant en francs : "</span>. number_format($valeurFrancs, <span class="hljs-number">2</span>, <span class="hljs-string">","</span>, <span class="hljs-string">" "</span>) .<span class="hljs-string">" francs&lt;br&gt; "</span> . number_format($valeurFrancs, <span class="hljs-number">2</span>, <span class="hljs-string">","</span>, <span class="hljs-string">" "</span>) .<span class="hljs-string">" francs = $valeurEuros €&lt;br/&gt;"</span>;
+
+    <span class="hljs-comment">//ou</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;h2&gt;Avec round()&lt;/h2&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Montant en francs : $valeurFrancs francs&lt;br&gt;$valeurFrancs francs = "</span>. round($valeurFrancs / <span class="hljs-number">6.55957</span>, <span class="hljs-number">2</span>). <span class="hljs-string">" €"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-6">Exo 6</h2>
+<p>Ecrire un algorithme permettant de calculer un montant de facture à régler à partir de la quantité d’articles, son prix hors taxe et un taux de TVA (exprimé en décimal. Ex : 20 % -&gt; 0.2)</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $prixUnitaire = <span class="hljs-number">9.99</span>;
+    $qte = <span class="hljs-number">5</span>;
+    $tauxTVA = <span class="hljs-number">0.2</span>;
+
+    <span class="hljs-comment">// Factorisation du calcul du prix ttc, d'autres méthodes étaient acceptées</span>
+    $prixTTC = $prixUnitaire * $qte * (<span class="hljs-number">1</span> + $tauxTVA);
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"PU : $prixUnitaire €&lt;br&gt;
+        Qté : $qte articles&lt;br&gt;
+        Taux TVA : "</span> . $tauxTVA * <span class="hljs-number">100</span> .<span class="hljs-string">" %&lt;br&gt;
+        Le montant de la facture à régler est de $prixTTC €"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-7">Exo 7</h2>
+<p>Ecrire un algorithme permettant de renvoyer la catégorie d’un enfant en fonction de son âge :</p>
+<ul>
+<li>Poussin : entre 6 et 7 ans</li>
+<li>Pupille : entre 8 et 9 ans&lt;</li>
+<li>Minime : entre 10 et 11 ans</li>
+<li>Cadet : à partir de 12 ans</li>
+<li>Si la catégorie n’est pas gérée, merci de le préciser.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $age = <span class="hljs-number">14</span>;
+    $cat = <span class="hljs-string">""</span>;
+
+    <span class="hljs-keyword">switch</span>(<span class="hljs-keyword">true</span>){
+        <span class="hljs-keyword">case</span> $age &gt;= <span class="hljs-number">12</span>: $cat = <span class="hljs-string">"Cadet"</span>; <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> $age &gt;= <span class="hljs-number">10</span>: $cat = <span class="hljs-string">"Minime"</span>; <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> $age &gt;= <span class="hljs-number">8</span> : $cat = <span class="hljs-string">"Pupille"</span>; <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> $age &gt;= <span class="hljs-number">6</span> : $cat = <span class="hljs-string">"Poussin"</span>; <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">default</span> : $cat = <span class="hljs-string">"Non gérée"</span>;
+    }
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Age de l'enfant : $age ans&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"L'enfant qui a $age ans appartient à la catégorie : $cat"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-8">Exo 8</h2>
+<p>Ecrire un algorithme qui renvoie la table de multiplication d’un nombre passé en paramètre</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $table = <span class="hljs-number">8</span>;
+
+    <span class="hljs-comment">// Méthode FOR</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;h2&gt;Avec FOR&lt;/h2&gt;"</span>;
+    <span class="hljs-keyword">for</span> ($i=<span class="hljs-number">1</span>; $i &lt;= <span class="hljs-number">10</span>; $i++) {
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"$i x $table = "</span>. $i * $table . <span class="hljs-string">"&lt;br&gt;"</span>;
+    }
+
+    <span class="hljs-comment">// METHODE WHILE</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;h2&gt;Avec WHILE&lt;/h2&gt;"</span>;
+    $i = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span> ($i &lt;= <span class="hljs-number">10</span>){
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"$i x $table = "</span>. $i * $table . <span class="hljs-string">"&lt;br&gt;"</span>;
+        $i++;
+    }
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-9">Exo 9</h2>
+<p>Nous souhaitons savoir si une personne est imposable en fonction de son âge et de son sexe.
+Si la personne est une femme dont l’âge est compris entre 18 et 35 ans ou si c’est un homme de plus de 20 ans, alors celle-ci est imposable (sinon ce n’est pas le cas, « non imposable »).</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $age = <span class="hljs-number">32</span>;
+    $sexe = <span class="hljs-string">"F"</span>;
+
+    <span class="hljs-comment">// on considère ici les conditions comme étant des booléens</span>
+    $C1 = $age &gt; <span class="hljs-number">20</span> &amp;&amp; $sexe == <span class="hljs-string">"M"</span>;
+    $C2 = $sexe == <span class="hljs-string">"F"</span> &amp;&amp; ($age &gt;= <span class="hljs-number">18</span> &amp;&amp; $age &lt;= <span class="hljs-number">35</span>);
+
+    <span class="hljs-comment">// on teste si au moins l'une des 2 conditions est remplie (simplification du if de ce fait)</span>
+    <span class="hljs-keyword">if</span>($C1 || $C2){
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"imposable&lt;br/&gt;"</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"non imposable&lt;br/&gt;"</span>;
+    }
+
+    <span class="hljs-comment">// autre méthode avec une écriture ternaire (remplace le if traditionnel et permet de gérer le tout en 6 lignes !)</span>
+    $imp = ($C1 || $C2) ? <span class="hljs-string">"imposable"</span> : <span class="hljs-string">"non imposable"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"La personne est : $imp"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-10">Exo 10</h2>
+<p>A partir d’un montant à payer et d’une somme versée pour régler un achat, écrire l’algorithme qui affiche à un utilisateur un rendu de monnaie en nombre de billets de 10 € et 5 €, pièces de 2 € et 1 €.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $aPayer = <span class="hljs-number">152</span>;
+    $verse = <span class="hljs-number">200</span>;
+    $reste = $verse - $aPayer;
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"A payer : $aPayer €&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Somme versée : $verse €&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Reste : $reste €&lt;br/&gt;"</span>;
+
+    <span class="hljs-comment">// ***** Solution avec floor *****</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;h2&gt;Solution floor&lt;/h2&gt;"</span>;
+    $nb10 = floor($reste / <span class="hljs-number">10</span>);
+    $reste = $reste - <span class="hljs-number">10</span> * $nb10;
+    $nb5 = floor($reste / <span class="hljs-number">5</span>);
+    $reste = $reste - <span class="hljs-number">5</span> * $nb5;
+    $nb2 = floor($reste / <span class="hljs-number">2</span>);
+    $reste = $reste - <span class="hljs-number">2</span> * $nb2;
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Billets de 10 : $nb10&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Billets de 5 : $nb5&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Pièces de 2 : $nb2&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Pièces de 1 : $reste&lt;br/&gt;"</span>;
+
+    <span class="hljs-comment">// ***** Solution avec intdiv *****</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;h2&gt;Solution intdiv&lt;/h2&gt;"</span>;
+    $resteBis = $verse - $aPayer;
+
+    $nb10 = intdiv($resteBis, <span class="hljs-number">10</span>);
+    $resteBis = $resteBis - <span class="hljs-number">10</span> * $nb10;
+    $nb5 = intdiv($resteBis, <span class="hljs-number">5</span>);
+    $resteBis = $resteBis - <span class="hljs-number">5</span> * $nb5;
+    $nb2 = intdiv($resteBis, <span class="hljs-number">2</span>);
+    $resteBis = $resteBis - <span class="hljs-number">2</span> * $nb2;
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Billets de 10 : $nb10&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Billets de 5 : $nb5&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Pièces de 2 : $nb2&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Pièces de 1 : $resteBis&lt;br/&gt;"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-11">Exo 11</h2>
+<p>Initialiser un tableau de x marques de voitures. Ecrire un algorithme permettant de parcourir ce tableau et d’en afficher le contenu (une marque de voiture par ligne). Il est également demandé d’afficher le nombre de marques de voitures présentes dans le tableau.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $voitures = [<span class="hljs-string">"Peugeot"</span>,<span class="hljs-string">"Mercedes"</span>,<span class="hljs-string">"Renault"</span>,<span class="hljs-string">"BMW"</span>];
+    $nbVoitures = count($voitures);
+
+    var_dump($voitures);  <span class="hljs-comment">// pensez à faire des var_dump de temps en temps pour tester vos variables et leur contenu !</span>
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Il y a $nbVoitures voitures dans le tableau&lt;br&gt;"</span>;
+
+    <span class="hljs-comment">// Méthode FOR</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;ul&gt;"</span>;
+    <span class="hljs-keyword">for</span>($i = <span class="hljs-number">0</span>; $i &lt; $nbVoitures; $i++) {
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;li&gt;"</span>.$voitures[$i].<span class="hljs-string">"&lt;/li&gt;"</span>;
+    }
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;/ul&gt;"</span>;
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Il y a "</span>.count($voitures).<span class="hljs-string">" voitures dans le tableau&lt;br&gt;"</span>;
+    <span class="hljs-comment">// Méthode foreach (à privilégier)</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;ul&gt;"</span>;
+    <span class="hljs-keyword">foreach</span> ($voitures <span class="hljs-keyword">as</span> $marque){ <span class="hljs-comment">//$marque = 1 élément du tableau</span>
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;li&gt;$marque&lt;/li&gt;"</span>;
+    }
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;/ul&gt;"</span>;
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-12">Exo 12</h2>
+<p>A partir d’une fonction personnalisée et à partir d’un tableau de prénoms et de langue associée (tableau contenant clé et valeur), dire bonjour aux différentes personnes dans leur langue respective (français =&gt; « Salut », anglais =&gt; « Hello », espagnol =&gt; « ... »)</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $personnes = [<span class="hljs-string">"Micka"</span>=&gt; <span class="hljs-string">"FRA"</span>, <span class="hljs-string">"Virgile"</span>=&gt;<span class="hljs-string">"ESP"</span>,<span class="hljs-string">"MC"</span>=&gt;<span class="hljs-string">"ENG"</span>];
+    $salutations = [<span class="hljs-string">"FRA"</span> =&gt; <span class="hljs-string">"Salut"</span>, <span class="hljs-string">"ESP"</span> =&gt; <span class="hljs-string">"Hola"</span>, <span class="hljs-string">"ENG"</span> =&gt; <span class="hljs-string">"Hello"</span>];
+
+    var_dump($personnes);
+    var_dump($salutations);
+
+    ksort($personnes); <span class="hljs-comment">// tri de A à Z sur la clé (key, ici le prénom)</span>
+    <span class="hljs-comment">// krsort($personnes); // tri de Z à A sur la clé (key, ici le prénom)</span>
+    <span class="hljs-comment">// asort($personnes); // tri de A à Z sur la valeur (ici la langue)</span>
+    <span class="hljs-comment">// arsort($personnes); // tri de Z à A sur la valeur (ici la langue)</span>
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;strong&gt;Méthode switch..case&lt;/strong&gt;&lt;br&gt;"</span>;
+    <span class="hljs-keyword">foreach</span>($personnes <span class="hljs-keyword">as</span> $prenom =&gt; $langue){
+        <span class="hljs-comment">//echo "$prenom parle $langue&lt;br&gt;";</span>
+        <span class="hljs-keyword">switch</span>($langue){
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"FRA"</span>: <span class="hljs-keyword">echo</span> <span class="hljs-string">"Salut $prenom&lt;br&gt;"</span>; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"ENG"</span>: <span class="hljs-keyword">echo</span> <span class="hljs-string">"Hello $prenom&lt;br&gt;"</span>; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"ESP"</span>: <span class="hljs-keyword">echo</span> <span class="hljs-string">"Hola $prenom&lt;br&gt;"</span>; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">default</span>: <span class="hljs-keyword">echo</span> <span class="hljs-string">"Langue non gérée pour $prenom&lt;br&gt;"</span>;
+        }
+    }
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;strong&gt;Méthode 2 tableaux associatifs&lt;/strong&gt;&lt;br&gt;"</span>;
+    <span class="hljs-keyword">foreach</span> ($personnes <span class="hljs-keyword">as</span> $prenom =&gt; $langue) {
+        <span class="hljs-keyword">if</span>(in_array($langue, array_keys($salutations))){
+            $bonjour = $salutations[$langue];
+            <span class="hljs-keyword">echo</span> <span class="hljs-string">"$bonjour $prenom&lt;br&gt;"</span>;
+        }<span class="hljs-keyword">else</span>{
+            <span class="hljs-keyword">echo</span> <span class="hljs-string">"Langue non gérée pour $prenom&lt;br&gt;"</span>;
+        }
+    }
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-13">Exo 13</h2>
+<p>Calculer la moyenne générale d'un élève dont les notes sont renseignées dans un tableau (pas de coefficient). Elle devra être affichée avec 2 décimales.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $notes = [<span class="hljs-number">10</span>, <span class="hljs-number">12</span>, <span class="hljs-number">8</span>, <span class="hljs-number">19</span>, <span class="hljs-number">3</span>, <span class="hljs-number">16</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span>, <span class="hljs-number">9</span>];
+    $nbNotes = count($notes);
+
+    var_dump($notes);
+
+    <span class="hljs-comment">// arrondir à 2 décimales la somme des notes divisée par le nombre de notes</span>
+    $moyenne = round(array_sum($notes) / $nbNotes, <span class="hljs-number">2</span>);
+    <span class="hljs-comment">// ou number_format</span>
+
+    <span class="hljs-comment">// implode affiche le contenu du tableau avec le séparateur spécifié en 1er argument snas devoir nécessairement passer par une boucle</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"Les notes obtenues sont : "</span> . implode(<span class="hljs-string">", "</span>,$notes);
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br&gt;La moyenne est de : $moyenne"</span>;
+
+    <span class="hljs-comment">// var_dump(array_values($notes));</span>
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-14">Exo 14</h2>
+<p>Calculer l'âge exact d'une personne à partir de sa date de naissance (en années, mois, jours).</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    <span class="hljs-comment">// $date1 et $date2 sont des instanciations de la classe DateTime (objets)</span>
+    $date1 = <span class="hljs-keyword">new</span> DateTime(<span class="hljs-string">'1985-01-17'</span>);
+    $date2 = <span class="hljs-keyword">new</span> DateTime(); <span class="hljs-comment">//date du jour</span>
+    $interval = $date1-&gt;diff($date2);
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"La personne née le "</span>.$date1-&gt;format(<span class="hljs-string">'d-m-Y'</span>). <span class="hljs-string">" a "</span>.$interval-&gt;format(<span class="hljs-string">'%y ans %m mois et %d jours'</span>);
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+<h2 id="exo-15">Exo 15</h2>
+<p>Créer une classe <code>Personne</code> (nom, prenom, date de naissance), instancier 2 personnes et renvoyer leur infos : nom + prénom + âge</p>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;?php</span>
+
+    $p1 = <span class="hljs-keyword">new</span> Personne(<span class="hljs-string">"DUPONT"</span>,<span class="hljs-string">"Michel"</span>,<span class="hljs-string">"1980-02-19"</span>);
+    $p2 = <span class="hljs-keyword">new</span> Personne(<span class="hljs-string">"VALET"</span>,<span class="hljs-string">"Marion"</span>,<span class="hljs-string">"1985-01-17"</span>);
+
+    var_dump($p1);
+    var_dump($p2);
+
+    <span class="hljs-comment">//Afficher les infos des personnes instanciées</span>
+    <span class="hljs-keyword">echo</span> $p1.<span class="hljs-string">"&lt;br&gt;"</span>;
+    <span class="hljs-keyword">echo</span> $p2.<span class="hljs-string">"&lt;br&gt;"</span>;
+
+    $p1-&gt;setPrenom(<span class="hljs-string">"Michèle"</span>);
+    <span class="hljs-keyword">echo</span> $p1.<span class="hljs-string">"&lt;br&gt;"</span>;
+
+    <span class="hljs-comment">/**
+     * Class Personne
+     */</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Personne</span> </span>{
+        <span class="hljs-comment">//Attributs (ou variables d'instance), par convention en "private", "protected" éventuellement si on fait appel à de l'héritage de classe</span>
+        <span class="hljs-keyword">private</span> $nom;
+        <span class="hljs-keyword">private</span> $prenom;
+        <span class="hljs-keyword">private</span> $dateNaissance;
+
+        <span class="hljs-comment">//Constructeur</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">($nom,$prenom,$dateNaissance)</span></span>{
+            <span class="hljs-keyword">$this</span>-&gt;nom = $nom;
+            <span class="hljs-keyword">$this</span>-&gt;prenom = $prenom;
+            <span class="hljs-keyword">$this</span>-&gt;dateNaissance = <span class="hljs-keyword">new</span> DateTime($dateNaissance);
+        }
+
+        <span class="hljs-comment">//Getters et setters (accesseurs et mutateurs)</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNom</span><span class="hljs-params">()</span></span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;nom;
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setNom</span><span class="hljs-params">($nom)</span></span>{
+            <span class="hljs-keyword">echo</span> <span class="hljs-keyword">$this</span>-&gt;nom.<span class="hljs-string">" "</span>.<span class="hljs-keyword">$this</span>-&gt;prenom.<span class="hljs-string">" a changé de nom !&lt;br/&gt;"</span>;
+            <span class="hljs-keyword">$this</span>-&gt;nom=$nom;
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPrenom</span><span class="hljs-params">()</span></span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;prenom;
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setPrenom</span><span class="hljs-params">($prenom)</span></span>{
+            <span class="hljs-keyword">echo</span> <span class="hljs-keyword">$this</span>-&gt;nom.<span class="hljs-string">" "</span>.<span class="hljs-keyword">$this</span>-&gt;prenom.<span class="hljs-string">" a changé de prénom !&lt;br/&gt;"</span>;
+            <span class="hljs-keyword">$this</span>-&gt;prenom=$prenom;
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDateNaissance</span><span class="hljs-params">()</span></span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;dateNaissance;
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setDateNaissance</span><span class="hljs-params">($dateNaissance)</span></span>{
+            <span class="hljs-keyword">echo</span> <span class="hljs-keyword">$this</span>-&gt;nom.<span class="hljs-string">" "</span>.<span class="hljs-keyword">$this</span>-&gt;prenom.<span class="hljs-string">" a changé de date de naissance (???) !&lt;br/&gt;"</span>;
+            <span class="hljs-keyword">$this</span>-&gt;dateNaissance=$dateNaissance;
+        }
+
+        <span class="hljs-comment">//Méthode perso pour le calcul de l'âge</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAge</span><span class="hljs-params">()</span></span>{
+            $now = <span class="hljs-keyword">new</span> DateTime(); <span class="hljs-comment">// date du jour</span>
+            $interval = <span class="hljs-keyword">$this</span>-&gt;dateNaissance-&gt;diff($now);
+            $age = $interval-&gt;format(<span class="hljs-string">'%y'</span>); <span class="hljs-comment">// récupérer le nombre d'années</span>
+            <span class="hljs-keyword">return</span> $age; 
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__toString</span><span class="hljs-params">()</span></span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;prenom.<span class="hljs-string">" "</span>.<span class="hljs-keyword">$this</span>-&gt;nom.<span class="hljs-string">" a "</span>.<span class="hljs-keyword">$this</span>-&gt;getAge().<span class="hljs-string">" ans"</span>;
+        }
+    }
+<span class="hljs-meta">?&gt;</span>
+</div></code></pre>
+
+</body>
+</html>
